@@ -1,0 +1,12 @@
+name: pulsaR_Otago
+title: pulsaR_Otago
+username:
+account: phaden
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2682886
+bundleId: 4591773
+url: https://phaden.shinyapps.io/pulsaR_Otago/
+when: 1620854601.3244
+asMultiple: FALSE
+asStatic: FALSE
