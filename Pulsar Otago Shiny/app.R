@@ -3,7 +3,7 @@
 #================================================================================
 #     R implementation of PULSAR algorithm (Merriam & Wachter, 1982)
 
-#     Copyright (C) 2020 Patricia Haden, RTIS, University of Otago
+#     Copyright (C) 2021, University of Otago, Patricia Haden, RTIS
 #
 #     This program is free software: you can redistribute it and/or modify
 #     it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@ library(shinyFiles)
 source("tooltip_text.R")
 
 # Source the R script files in the local package copy
-package_path <- "pulsar/R/"
+package_path <- "pulsaR/R/"
 source_files <- c("pulsar_constants.R", "pulsar_utilities.R", "pulsar_computation.R", "pulsar_main.R")
 for (source_file in source_files)
 {
@@ -417,7 +417,7 @@ ui <- fluidPage(
     ) # end mainPanel
   ), #end sidebarlayout
   hr(),
-  h6("Pulsar Otago. Copyright (c) 2020 Patricia Haden, RTIS, University of Otago"),
+  h6("Pulsar Otago. Copyright (c) 2021 University of Otago"),
   h6("This program is licensed under GNU 3 (see http://www.gnu.org/licenses/). This program comes with ABSOLUTELY NO WARRANTY.")
 ) # end ui <- fluidPage
 
@@ -431,7 +431,7 @@ server <- function(input, output, session) {
   
   is_local <- Sys.getenv('SHINY_PORT') == ""
   
-  # check with rsconnect::showLogs(streaming = TRUE)
+  # check with rsconnect::showLogs(streaming = TRUE, appName = "pulsaR_Otago")
   cat(file=stderr(), "is_local: ", is_local, "\n" )
   
   #================================================ 
@@ -774,44 +774,27 @@ output$btn_download <- downloadHandler(
     # Read the saved file in here to pass to write method
     param_list <- restore_param_list()
     
-    
-    # Want to do the zip file thing if running
-    # remotely and the normal multiple folder thing if running locally....
-    
-    # Doesn't work. Still get the save dialog but with btn_save
-    
-    #is_local <- Sys.getenv('SHINY_PORT') == ""
-    
-    
-    
-    # Just let write_multi_pulsar run as normal when you're running locally inside RStudio
-    # The zip_files arg is FALSE
-    
-    #if (is_local){
-     # all_files <- write_multi_pulsar(v$experiment_name, param_list, v$all_results, zip_files = FALSE)
-    #  removeNotification(not_id)
-     # showNotification("Finished saving...")
-    #} else {
       
-      # You're running from a web host...set the zip_file arg to true
+    # You're running from a web host...set the zip_file arg to true
       
-      # They suggest writing to a temp directory on the server
-      owd <- setwd(tempdir())
-      on.exit(setwd(owd))
+    # They suggest writing to a temp directory on the server
+    owd <- setwd(tempdir())
+    on.exit(setwd(owd))
       
-      all_files <- write_multi_pulsar(v$experiment_name, param_list, v$all_results, zip_files = TRUE)
+    all_files <- write_multi_pulsar(v$experiment_name, param_list, v$all_results, zip_files = TRUE)
       
-      removeNotification(not_id)
-      showNotification("Finished saving...")
+    removeNotification(not_id)
+    showNotification("Finished saving...")
       
-      zip_status <- zip::zip(file, all_files)
+    zip_status <- zip::zip(file, all_files)
       
    #} # end not is_local
 
-    
-    
-
-
+    # Delete files so they won't be downloaded again
+    for (file in all_files)
+    {
+      unlink(file)
+    }
   },
   contentType = "application/zip"
   
