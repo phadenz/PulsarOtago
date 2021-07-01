@@ -455,13 +455,13 @@ gen_peak_plot <- function(animal_id,
   peak_plot <- peak_plot +
     ggplot2::geom_point(data = peak_display_df,
                         ggplot2::aes(x = peak_times, y = peak_raw_concentrations),
-                        color = "red", size = 4) +
+                        color = "#d55e00", size = 4) +
     ggplot2::geom_point(data = ambig_peak_display_df,
                         ggplot2::aes(x = ambig_peak_times, y = ambig_peak_raw_concentrations),
-                        color = "green3", size = 4) +
+                        color = "#f0e442", size = 4) +
     ggplot2::geom_point(data = near_nadir_display_df,
                         ggplot2::aes(x = near_nadir_times, y = near_nadir_raw_concentrations),
-                        color = "purple", size = 4)
+                        color = "#0072b2", size = 4)
 
 
   return(peak_plot)
