@@ -304,7 +304,7 @@ ui <- fluidPage(
     sidebarPanel(width = 6, id = "side_panel",
                  
       fluidRow(
-        column(12,  a(href="PULSAR_Otago_Input_Output_Formats_v1.4", "Download File Management Documentation", download=NA, target="_blank"))
+        column(12,  a(href="PULSAR_Otago_Input_Output_Formats_v1.4.pdf", "Download File Management Documentation", download=NA, target="_blank"))
       ),
                  
       fluidRow(
