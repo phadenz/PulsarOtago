@@ -424,7 +424,7 @@ gen_peak_plot <- function(animal_id,
 
 
   # If no peaks were found, just return the basic plot
-  if (nrow(peak_features) == 0) {
+  if (all(peak_points$flag == 0)) {
     return(peak_plot)
   }
 
