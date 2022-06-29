@@ -733,6 +733,8 @@ fsm_split_peaks <- function(peak_points, peak_split_depth, rescaled_conc)
     if (current_state == st_seeking) {
       if (next_flag == const$flag_in_peak){
         current_state <- st_climbing
+        # !!! Added Sawyer fix 29-06-22
+        current_peak_conc <- rescaled_conc[next_loc]
       }
 
     } else if (current_state == st_climbing){
