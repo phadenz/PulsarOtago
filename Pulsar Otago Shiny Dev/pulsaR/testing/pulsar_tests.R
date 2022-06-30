@@ -1,7 +1,8 @@
 # Clean up and reload
 rm(list = ls())
-library(devtools)
-devtools::load_all()
+
+#library(devtools)
+#devtools::load_all()
 
 # Source the R script files in the local package copy
 package_path <- "pulsaR/R/"
@@ -18,9 +19,8 @@ for (source_file in source_files)
 # Split peak bug fix testing. Deep Debug
 
 
-# Returns NULL if the import fails. Returns a list ExperimentName and HormoneDF
-# if the import succeeds
-data_file_path = "test_data/Three Peaks Test.csv"
+#data_file_path = "test_data/Three Peaks Test.csv"
+data_file_path = "test_data/Sawyer Split Peak.csv"
 input_data <- read_pulsar_input_file(data_file_path)
 
 experiment_name <- input_data$ExperimentName
@@ -29,7 +29,7 @@ hormone_df <- input_data$HormoneDF
 smoothing_fraction <- 0.70
 g_values <- c(6.2, 4.9, 2.5, 1.5, 1.2)
 extinction_threshold <- 0.1
-peak_split_depth <- 0.1
+peak_split_depth <- 1.3
 sdr_coef <- c(0, 2.5, 3.3)
 nearest_nadir_distance <- 3
 n_steps = const$n_steps_constant
@@ -53,12 +53,13 @@ animal_df <- data.frame(time = sample_times, conc = animal_conc)
 
 colnames(animal_df) = c("Time", "Concentration")
 animal_df <- clean_data(animal_df, extinction_threshold)
+
 times <- animal_df$Time
 raw_concentrations <- animal_df$Concentration
 smoothed_concentrations <- gen_smoothed(times, raw_concentrations, smoothing_fraction, n_steps)
 rescaled_conc <- gen_rescaled(raw_concentrations, smoothed_concentrations, sdr_coef = sdr_coef)
 peak_points <- find_peaks(rescaled_conc, g_values)
-  
+
 ################################################################################
 # Here's the trouble spot...
 
@@ -68,6 +69,22 @@ split_peak_points <- fsm_split_peaks(peak_points, peak_split_depth, rescaled_con
 
 
 trimmed_peak_points <- trim_end_peaks(split_peak_points, rescaled_conc)
+
+debug_df <- animal_df
+debug_df$smoothed <- smoothed_concentrations
+debug_df$rescaled <- rescaled_conc
+debug_df$raw_pulse_flag <- peak_points$flag
+debug_df$raw_pulse_length <- peak_points$score
+debug_df$split_pulse_flag <- split_peak_points$flag
+debug_df$split_pulse_length <- split_peak_points$score
+debug_df$trimmed_pulse_flag <- trimmed_peak_points$flag
+
+
+filename <- paste0(substr(data_file_path,11,25), ".csv")
+write.csv(debug_df, filename)
+
+
+
 peak_features <- gen_peak_features(trimmed_peak_points, rescaled_conc)
 
 # If you found any peaks, process them. Otherwise leave these elements NULL

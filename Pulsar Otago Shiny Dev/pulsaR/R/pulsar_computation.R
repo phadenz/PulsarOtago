@@ -776,18 +776,23 @@ fsm_split_peaks <- function(peak_points, peak_split_depth, rescaled_conc)
         current_dip_loc <- next_loc
         current_dip_conc <- rescaled_conc[current_dip_loc]
       }
-    # If we are currently in state split_check, we are still searching for that low point...
+    # If we are currently in state split_check, we have moved down split peak depth
+    # We continue to walk, keeping track of the nadir and monitoring for a move back 
+    # up of split peak depth. If that happens, we split. 
+    # Otherwise, we will eventually fall out of the pulse and go back to seeking
     } else if (current_state == st_split_check){
-      # Moving downward within the pulse, update min if appropriate
-      if (delta_conc <= 0) {
-        if (next_conc < current_dip_conc){
-          current_dip_loc <- next_loc
-          current_dip_conc <- rescaled_conc[current_dip_loc]
-        }
-      # Minimum distance drop hits criterion. Enter splitting state  
-      } else if ((current_conc - current_dip_conc) > peak_split_depth) {
+      
+      # We are in split check because we moved down split peak depth
+      # First check if we've moved up enough to split
+      
+      if ((current_conc - current_dip_conc) > peak_split_depth) {
         current_state <- st_splitting
+      } else if (current_conc < current_dip_conc){
+        # Keeping track of the low point of the dip
+        current_dip_loc <- main_walker
+        current_dip_conc <- current_conc
       }
+
     } else if (current_state == st_splitting) {
       # In splitting state, mark nadir as overlap point and prepare to parse next peak in pulse
       peak_flags[current_dip_loc] <- const$flag_overlap_peak_point # next pass, start new peak here
