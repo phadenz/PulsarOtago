@@ -1,0 +1,18 @@
+Package: pulsaR
+Type: Package
+Title: PULSAR pulse detection
+Version: 1.0.0
+Author: Patricia Haden
+Maintainer: Patricia Haden <patricia.haden@otago.ac.nz>
+Description: Implements a version of the PULSAR pulse detection algoriothm (Merrian and Wachter, 1982). Developed for the Department of Physiology, University of Otago, Dunedin, New Zealand.
+License: GPL
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    ggplot2,
+    gridExtra,
+    stats,
+    utils,
+    grDevices,
+    zip
+RoxygenNote: 7.1.1

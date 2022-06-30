@@ -1,0 +1,6 @@
+tip_spn_smoothing_fraction <- "Width of smoothing window as proportion of total session time."
+tip_spn_split_depth <- "Distance in normalised units that a series of in-peak points must fall and rise to be divided into separate events."
+tip_spn_level_detection <- "Raw concentration values below this value are replaced with this value"
+tip_g_function <- "Values defining function g(n) such that a series of n consecutive points, all of whose normalised values exceed g(n), is identified as a peak/pulse event"
+tip_assay_variability <- "Coefficients for the quadratic estimate of assay variability. Variability at raw concentration value x is estimated as ((quadratic * x^^2) + (linear * x) + (constant)) * 0.01 (cf. Merriam and Wachter, 1982)."
+tip_spn_nearest_nadir_distance <- "The number of samples to look back from a peak to find the minimum from which to compute amplitude."
