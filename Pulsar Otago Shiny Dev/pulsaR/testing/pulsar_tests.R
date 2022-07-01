@@ -19,8 +19,7 @@ for (source_file in source_files)
 # Split peak bug fix testing. Deep Debug
 
 
-data_file_path = "test_data/Three Peak Test.csv"
-#data_file_path = "test_data/Two Peak Test.csv"
+data_file_path = "test_data/Five Peak Test.csv"
 input_data <- read_pulsar_input_file(data_file_path)
 
 experiment_name <- input_data$ExperimentName
