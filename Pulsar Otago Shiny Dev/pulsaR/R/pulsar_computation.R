@@ -434,8 +434,9 @@ gen_peak_plot <- function(animal_id,
 
   # All points that were included in a peak will be coloured red
   # Get x and y values for those points and store in a df
-  peak_times <- times[peak_flags == const$flag_in_peak]
-  peak_raw_concentrations <- raw_concentrations[peak_flags == const$flag_in_peak]
+  # Modify to include dip points in split peaks 01-07-22
+  peak_times <- times[peak_flags == const$flag_in_peak | peak_flags == const$flag_overlap_peak_point]
+  peak_raw_concentrations <- raw_concentrations[peak_flags == const$flag_in_peak | peak_flags == const$flag_overlap_peak_point]
   peak_display_df = data.frame(peak_times, peak_raw_concentrations)
 
 
