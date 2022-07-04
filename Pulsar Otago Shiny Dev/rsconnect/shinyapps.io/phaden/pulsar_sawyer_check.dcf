@@ -1,0 +1,14 @@
+name: pulsar_sawyer_check
+title: pulsar_sawyer_check
+username:
+account: phaden
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6588294
+bundleId: 6066801
+url: https://phaden.shinyapps.io/pulsar_sawyer_check/
+when: 1656902560.55813
+lastSyncTime: 1656902560.55813
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Sawyer Orig Screen.png|test_data
