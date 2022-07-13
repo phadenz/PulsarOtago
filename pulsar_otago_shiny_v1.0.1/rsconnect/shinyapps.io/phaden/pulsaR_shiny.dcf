@@ -1,0 +1,13 @@
+name: pulsaR_shiny
+title: pulsaR_shiny
+username:
+account: phaden
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2683242
+bundleId: 3629195
+url: https://phaden.shinyapps.io/pulsaR_shiny/
+when: 1600124818.15422
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: param_list.Rdata|pulsaR_demo.R
