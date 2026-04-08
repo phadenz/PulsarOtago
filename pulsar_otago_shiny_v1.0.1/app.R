@@ -385,7 +385,7 @@ ui <- fluidPage(
         column(7, fileInput("fin_data", "Upload Data File",
                              multiple=FALSE,
                              accept = c(".csv"),
-                             placeholder = "Demo - test data/pulsar_sim_data_06_animals.csv")),
+                             placeholder = "Demo - test_data/pulsar_sim_data_06_animals.csv")),
         column(5, actionButton("btn_pulsar", "Run Pulsar Current File", width = button_width))
         
       ),
@@ -462,7 +462,7 @@ server <- function(input, output, session) {
   # Data structure for storing dynamic data values
   # Default data file is for testing
   v <- reactiveValues(
-    data_file_path = "test data/pulsar_sim_data_06_animals.csv",
+    data_file_path = "test_data/pulsar_sim_data_06_animals.csv",
     data_folder_path = NULL,
     input_data = NULL,
     experiment_name = NULL,
